@@ -1,0 +1,50 @@
+version: "3"
+services:
+  frontend:
+    container_name: frontend
+    # image: oshabz/marble-arch-frontend:1.0
+    build:
+      context: ./frontend
+      args:
+        - REACT_APP_DEV_BASE_URL=http://backend:8800/api/
+    ports:
+      - 3000:3000
+    environment:
+      - REACT_APP_DEV_BASE_URL=http://backend:8800/api/
+    depends_on:
+      - backend
+  backend:
+    container_name: backend
+    image: backend
+    build: ./backend
+    ports:
+      - 8800:8800
+    depends_on:
+      - db
+    env_file:
+      - .env
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      db_ROOT_PASSWORD: notSecureChangeMe
+      MARIADB_ROOT_PASSWORD: notSecureChangeMe
+    volumes:
+      - mysqldb:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - 8087:80
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - db
+networks:
+  smclone: {}
+
+volumes:
+  db:
+    driver: local
+  mongodb_config:
+  mysqldb:
