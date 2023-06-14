@@ -18,7 +18,6 @@ RUN npm ci
  ENV NODE_ENV production
  ARG $REACT_APP_DEV_BASE_URL
  ENV REACT_APP_DEV_BASE_URL http://localhost:7500/api
- EXPOSE 4200
 
 
 # Expose react to port 3000
