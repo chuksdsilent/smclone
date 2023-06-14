@@ -20,7 +20,7 @@ const Register = () => {
         e.preventDefault();
 
         try {
-            const data = await axios.post("http://52.87.255.171/:8800/api/auth/register", inputs);
+            const data = await axios.post("http://52.87.255.171:8800/api/auth/register", inputs);
             navigate("/login?msg=Account created successfully. Kindly login")
         } catch (err) {
             setErr(err.response.data);
