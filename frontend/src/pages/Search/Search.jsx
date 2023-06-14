@@ -8,7 +8,7 @@ const Search = () => {
     const search = searchParams.get("search_item")
     const [users, setUsers] = useState([]);
 
-    const { isLoading, error, data } = useQuery(["search"], () =>
+    let { isLoading, error, data } = useQuery(["search"], () =>
         makeRequest.get(`/users/search/${search}`).then((res) => {
             return res.data;
         })
@@ -27,6 +27,10 @@ const Search = () => {
     );
     const handleFollow = (userId) => {
         mutation.mutate(userId);
+
+        data = data.filter(user => {
+            return user.id !== userId
+        })
     }
 
     const handleDismiss = (userId) => {
