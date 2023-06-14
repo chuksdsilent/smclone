@@ -26,7 +26,7 @@ export const getFriends = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
-    const q = "SELECT * FROM users WHERE name = ? username = ? OR email = ?";
+    const q = `SELECT * FROM users WHERE name LIKE ? username LIKE ? OR email LIKE ?`;
     const d = [
       `%${req.params.item}%`,
       `%${req.params.item}%`,
