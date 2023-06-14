@@ -54,6 +54,7 @@ app.post("/api/upload", async (req, res) => {
   res.status(200).send(file);
 });
 
+console.log("pass", process.env.PASSWORD);
 app.use("/api/auth", authRoutes);
 app.use("/api/stories", storyRoutes);
 app.use("/api/users", userRoutes);
