@@ -51,14 +51,19 @@ const Share = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     setLoading(true)
-    if (file.size > 5000000) {
-      alert("File must not be more than 5mb")
-      setFile(null);
-      setLoading(false)
+    let imgBase64 = "";
+    if (file) imgBase64 = await convertBase64(file);
+    if (file) {
+      if (file.size > 5000000) {
+        alert("File must not be more than 5mb")
+        setFile(null);
+        setLoading(false)
+      } else {
+        mutation.mutate({ desc, img: imgBase64 });
+        setFile(null);
+        setDesc("");
+      }
     } else {
-
-      let imgBase64 = "";
-      if (file) imgBase64 = await convertBase64(file);
       mutation.mutate({ desc, img: imgBase64 });
       setFile(null);
       setDesc("");
