@@ -26,7 +26,7 @@ app.use(bodyParser.text({ limit: "200mb" }));
 app.use(
   cors({
     credentials: true,
-    origin: "http://52.87.255.171:3000",
+    origin: "http://ec2-52-87-255-171.compute-1.amazonaws.com",
   })
 );
 app.use(cookieParser());
