@@ -27,7 +27,11 @@ export const getFriends = (req, res) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const q = "SELECT * FROM users WHERE name = ? username = ? OR email = ?";
-    const d = [`%req.params.item%`, `%req.params.item%`, `%req.params.item%`];
+    const d = [
+      `%${req.params.item}%`,
+      `%${req.params.item}%`,
+      `%${req.params.item}%`,
+    ];
     db.query(q, d, (err, data) => {
       if (err) return res.status(500).json(err);
       return res.json(data);
